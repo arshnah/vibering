@@ -46,15 +46,12 @@ choice is remembered in `localStorage`.
 
 ## How to join the ring (invite-only)
 
-Membership is invite-only. People can't add themselves. A current member vouches for the newcomer,
-and an admin merges the PR. Full step-by-step instructions live in [`JOIN.md`](JOIN.md), which is
-the file you hand to anyone you invite. The short version:
+Membership is invite-only. There is no public sign-up: people can't add themselves. To be invited,
+message **arshnah on Discord** (<https://discord.com/users/1352866897900732446>) and ask.
 
-1. An existing member invites you (they'll give you their handle).
-2. You fork the repo and add your entry to the **end** of `webring.json`, with `invitedBy` set to
-   your inviter's handle.
-3. You add the ring navigation to your own site (grab the auto-filled snippet from the homepage).
-4. You open a pull request naming your inviter. An admin confirms the vouch and merges.
+Once someone is invited, they get the full step-by-step guide in [`JOIN.md`](JOIN.md) — that's the
+file you hand to anyone you invite (fork, add your entry to `webring.json` with `invitedBy` set,
+add the ring nav to your site, open a PR that your inviter approves).
 
 ### How invite-only is actually enforced
 
