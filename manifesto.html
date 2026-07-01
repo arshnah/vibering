@@ -5,28 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>manifesto · vibering</title>
 <meta name="description" content="you are not a user. you are a person. make a website you think is cool.">
+<script>
+  (function () {
+    var t; try { t = localStorage.getItem("vibering-theme"); } catch (e) {}
+    document.documentElement.dataset.theme = t || "dark";
+  })();
+</script>
 <style>
   :root {
-    --bg:#fbf3e8; --ink:#2a2320; --muted:#7d7064; --faint:#a99a88;
-    --link:#cf2e77; --link-hover:#a01f5c; --g1:#7c5cff; --g2:#ff5db1; --g3:#ff7a5c;
+    --bg:#120e1a; --ink:#efeaf5; --muted:#a294b8; --faint:#6d6280;
+    --link:#ff7fb3; --link-hover:#ffa6cd; --g1:#7c5cff; --g2:#ff5db1; --g3:#ff7a5c;
     --grad:linear-gradient(105deg, var(--g1), var(--g2), var(--g3));
+    --glow-a:rgba(124,92,255,.22); --glow-b:rgba(255,93,177,.14); --em:#c9b4ff;
+    --card:#1b1526; --line:#2a2238;
+  }
+  :root[data-theme="light"] {
+    --bg:#fbf3e8; --ink:#2a2320; --muted:#7d7064; --faint:#a99a88;
+    --link:#cf2e77; --link-hover:#a01f5c; --glow-a:rgba(124,92,255,.16); --glow-b:rgba(255,122,92,.15);
+    --em:#7c3aed; --card:#fffdf8; --line:#ecdfcd;
   }
   * { box-sizing:border-box; }
   body {
     margin:0; color:var(--ink);
     background:
-      radial-gradient(820px 480px at 10% -10%, rgba(124,92,255,.16), transparent 60%),
-      radial-gradient(760px 440px at 98% 4%, rgba(255,122,92,.15), transparent 55%),
+      radial-gradient(820px 480px at 10% -10%, var(--glow-a), transparent 60%),
+      radial-gradient(760px 440px at 98% 4%, var(--glow-b), transparent 55%),
       var(--bg);
     background-attachment:fixed;
     font:17px/1.75 "Segoe UI", ui-rounded, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing:antialiased;
+    transition:background-color .2s ease, color .2s ease;
   }
   a { color:var(--link); }
   a:hover { color:var(--link-hover); }
   .wrap { width:min(680px,100%); margin:0 auto; padding:44px 22px 100px; }
+  .bar { display:flex; align-items:center; justify-content:space-between; }
   .back { color:var(--muted); text-decoration:none; font-size:15px; }
   .back:hover { color:var(--link); }
+  .theme-btn {
+    width:38px; height:38px; border-radius:11px; cursor:pointer; background:var(--card);
+    border:1px solid var(--line); color:var(--ink); font-size:17px; display:grid; place-items:center;
+  }
+  .theme-btn:hover { border-color:var(--g2); }
   h1 {
     font-size:clamp(34px,8vw,46px); font-weight:800; letter-spacing:-.03em; margin:30px 0 22px;
     background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
@@ -35,7 +55,7 @@
   p { margin:0 0 18px; }
   .lead { font-size:20px; }
   .muted { color:var(--muted); }
-  em { font-style:italic; color:#7c3aed; }
+  em { font-style:italic; color:var(--em); }
   .end { color:var(--faint); margin-top:48px; font-size:15px; }
   .end a { color:var(--muted); }
 </style>
@@ -43,7 +63,10 @@
 <body>
 <div class="wrap">
 
-  <a class="back" href="./">&larr; back home</a>
+  <div class="bar">
+    <a class="back" href="./">&larr; back home</a>
+    <button class="theme-btn" id="theme" title="toggle theme" aria-label="toggle theme">☀</button>
+  </div>
 
   <h1>manifesto</h1>
 
@@ -79,5 +102,17 @@
   <p class="end">that&apos;s pretty much it. &middot; <a href="./">back to the ring</a></p>
 
 </div>
+
+<script>
+  var themeBtn = document.getElementById("theme");
+  function paintTheme() { themeBtn.textContent = document.documentElement.dataset.theme === "dark" ? "☀" : "☾"; }
+  themeBtn.addEventListener("click", function () {
+    var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("vibering-theme", next); } catch (e) {}
+    paintTheme();
+  });
+  paintTheme();
+</script>
 </body>
 </html>

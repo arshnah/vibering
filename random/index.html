@@ -4,12 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>random · vibering</title>
+<script>
+  (function () { var t; try { t = localStorage.getItem("vibering-theme"); } catch (e) {} document.documentElement.dataset.theme = t || "dark"; })();
+</script>
 <style>
-  body { margin:0; min-height:100vh; display:grid; place-items:center; background:#fbf3e8; color:#2a2320;
+  :root { --bg:#120e1a; --ink:#efeaf5; --muted:#a294b8; --link:#ff7fb3; }
+  :root[data-theme="light"] { --bg:#fbf3e8; --ink:#2a2320; --muted:#8a7d70; --link:#cf2e77; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--ink);
     font:16px/1.6 "Segoe UI", ui-rounded, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; }
   .box { text-align:center; padding:8px 24px; }
-  a { color:#cf2e77; }
-  #msg { color:#8a7d70; }
+  a { color:var(--link); }
+  #msg { color:var(--muted); }
 </style>
 </head>
 <body>

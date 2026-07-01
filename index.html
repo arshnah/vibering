@@ -7,24 +7,37 @@
 <meta name="description" content="a little ring of hand-made personal websites. invite only.">
 <meta property="og:title" content="vibering webring">
 <meta property="og:description" content="a little ring of hand-made personal websites. invite only.">
+<script>
+  (function () {
+    var t; try { t = localStorage.getItem("vibering-theme"); } catch (e) {}
+    document.documentElement.dataset.theme = t || "dark";
+  })();
+</script>
 <style>
   :root {
-    --bg:#fbf3e8; --card:#fffdf8; --ink:#2a2320; --muted:#8a7d70; --faint:#b1a390;
-    --line:#ecdfcd; --link:#cf2e77; --link-hover:#a01f5c;
+    --bg:#120e1a; --card:#1b1526; --ink:#efeaf5; --muted:#a294b8; --faint:#6d6280;
+    --line:#2a2238; --link:#ff7fb3; --link-hover:#ffa6cd;
     --g1:#7c5cff; --g2:#ff5db1; --g3:#ff7a5c;
     --grad:linear-gradient(105deg, var(--g1), var(--g2), var(--g3));
+    --glow-a:rgba(124,92,255,.24); --glow-b:rgba(255,93,177,.15);
+  }
+  :root[data-theme="light"] {
+    --bg:#fbf3e8; --card:#fffdf8; --ink:#2a2320; --muted:#8a7d70; --faint:#b1a390;
+    --line:#ecdfcd; --link:#cf2e77; --link-hover:#a01f5c;
+    --glow-a:rgba(124,92,255,.18); --glow-b:rgba(255,122,92,.16);
   }
   * { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   body {
     margin:0; color:var(--ink);
     background:
-      radial-gradient(900px 520px at 12% -12%, rgba(124,92,255,.18), transparent 60%),
-      radial-gradient(820px 480px at 96% 6%, rgba(255,122,92,.16), transparent 55%),
+      radial-gradient(900px 520px at 12% -12%, var(--glow-a), transparent 60%),
+      radial-gradient(820px 480px at 96% 6%, var(--glow-b), transparent 55%),
       var(--bg);
     background-attachment:fixed;
     font:16px/1.65 "Segoe UI", ui-rounded, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing:antialiased;
+    transition:background-color .2s ease, color .2s ease;
   }
   a { color:var(--link); text-decoration:none; }
   a:hover { color:var(--link-hover); text-decoration:underline; text-underline-offset:3px; }
@@ -32,11 +45,18 @@
 
   header.top { display:flex; align-items:center; gap:14px; }
   .logo { width:44px; height:44px; flex:none; }
+  .logo .dot { fill:var(--ink); }
   .word {
     font-size:clamp(34px,7vw,44px); font-weight:800; letter-spacing:-.03em; margin:0;
     background:var(--grad); -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent; color:transparent;
   }
+  .theme-btn {
+    margin-left:auto; width:40px; height:40px; flex:none; border-radius:12px; cursor:pointer;
+    background:var(--card); border:1px solid var(--line); color:var(--ink);
+    font-size:18px; line-height:1; display:grid; place-items:center;
+  }
+  .theme-btn:hover { border-color:var(--g2); }
   .tagline { color:var(--muted); margin:16px 0 0; font-size:18px; }
 
   hr { border:0; border-top:1px solid var(--line); margin:36px 0; }
@@ -52,24 +72,24 @@
     background:var(--card); border:1px solid var(--line); color:var(--ink);
   }
   .pill:hover { border-color:var(--g2); color:var(--ink); text-decoration:none; transform:translateY(-1px); }
-  .pill.rand { background:var(--grad); color:#fff; border:0; box-shadow:0 6px 16px rgba(207,46,119,.28); }
-  .pill.rand:hover { color:#fff; filter:brightness(1.05); }
+  .pill.rand { background:var(--grad); color:#fff; border:0; box-shadow:0 6px 16px rgba(124,92,255,.35); }
+  .pill.rand:hover { color:#fff; filter:brightness(1.08); }
 
   .count { color:var(--faint); font-size:14px; font-weight:400; margin-left:8px; }
   #search {
     width:100%; margin:6px 0 22px; background:var(--card); color:var(--ink);
     border:1px solid var(--line); border-radius:12px; padding:12px 15px; font:inherit; outline:none;
   }
-  #search:focus { border-color:var(--g2); box-shadow:0 0 0 3px rgba(255,93,177,.14); }
+  #search:focus { border-color:var(--g2); box-shadow:0 0 0 3px rgba(255,93,177,.16); }
   #search::placeholder { color:var(--faint); }
 
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
   .m {
     display:flex; gap:12px; align-items:flex-start; padding:13px 15px; color:inherit;
     background:var(--card); border:1px solid var(--line); border-radius:16px;
-    box-shadow:0 4px 14px rgba(120,60,110,.05); transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    box-shadow:0 4px 14px rgba(0,0,0,.14); transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
-  .m:hover { transform:translateY(-3px); box-shadow:0 12px 26px rgba(207,46,119,.15); border-color:#f2ccdd; text-decoration:none; }
+  .m:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(124,92,255,.22); border-color:var(--g2); text-decoration:none; }
   .ring { flex:none; padding:2px; border-radius:13px; background:var(--grad); }
   .ava {
     width:38px; height:38px; border-radius:11px; overflow:hidden; position:relative;
@@ -104,9 +124,10 @@
       </defs>
       <circle cx="20" cy="20" r="14" stroke="url(#lg)" stroke-width="3.5"/>
       <circle cx="20" cy="6" r="3.6" fill="#ff5db1"/>
-      <circle cx="20" cy="20" r="3" fill="#2a2320"/>
+      <circle class="dot" cx="20" cy="20" r="3"/>
     </svg>
     <h1 class="word">vibering</h1>
+    <button class="theme-btn" id="theme" title="toggle theme" aria-label="toggle theme">☀</button>
   </header>
   <p class="tagline">a little ring of hand-made personal websites.</p>
 
@@ -147,6 +168,16 @@
 
 <script src="webring.js"></script>
 <script>
+  var themeBtn = document.getElementById("theme");
+  function paintTheme() { themeBtn.textContent = document.documentElement.dataset.theme === "dark" ? "☀" : "☾"; }
+  themeBtn.addEventListener("click", function () {
+    var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("vibering-theme", next); } catch (e) {}
+    paintTheme();
+  });
+  paintTheme();
+
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
     return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]; }); };
   var host = function (u) { try { return new URL(u).host.replace(/^www\./, ""); } catch (e) { return u; } };
