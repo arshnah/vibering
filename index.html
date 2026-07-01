@@ -1,155 +1,171 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Loopback Webring</title>
+<title>loopback — a webring</title>
+<meta name="description" content="a hand-made ring of personal websites. invite only.">
+<meta property="og:title" content="loopback webring">
+<meta property="og:description" content="a hand-made ring of personal websites. invite only.">
 <style>
-  body { margin:0; background:#efe7d0; color:#2b2a26;
-    font-family:ui-monospace,"Cascadia Mono","Courier New",monospace; font-size:15px; line-height:1.5; }
-  a { color:#1b2a5b; }
-  .wrap { max-width:900px; margin:0 auto; padding:22px 14px 60px; }
+  :root {
+    --bg:#0d0e12; --surface:#15161d; --border:#23252f; --text:#e7e8ec;
+    --muted:#8b8d99; --faint:#5c5e6a; --accent:#ff6b6b; --accent-dim:#c85450;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; text-underline-offset:3px; }
+  .wrap { width:min(760px,100%); margin:0 auto; padding:56px 22px 90px; }
 
-  .head { text-align:center; margin-bottom:20px; }
-  .head h1 { margin:.15em 0; letter-spacing:1px; }
-  .head p { margin:.2em 0; }
+  header.top { display:flex; align-items:center; gap:14px; }
+  header.top .logo { width:40px; height:40px; flex:none; }
+  header.top h1 { margin:0; font-size:30px; font-weight:700; letter-spacing:-.02em; }
+  .tagline { color:var(--muted); margin:14px 0 0; }
+  .tagline a { color:var(--muted); text-decoration:underline; text-underline-offset:2px; }
 
-  .panel { background:#f7f1df; border:2px solid #2b2a26; box-shadow:5px 5px 0 rgba(43,42,38,.3); margin:0 0 20px; }
-  .bar { background:#1b2a5b; color:#efe7d0; padding:7px 12px; display:flex; justify-content:space-between;
-    gap:10px; font-weight:bold; letter-spacing:1.5px; text-transform:uppercase; font-size:12px; }
-  .body { padding:15px 16px; }
+  hr { border:0; border-top:1px solid var(--border); margin:34px 0; }
+  h2 { font-size:22px; font-weight:700; letter-spacing:-.01em; margin:38px 0 12px; }
+  p { margin:0 0 14px; }
+  .muted { color:var(--muted); }
 
-  .toolbar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-  #search { flex:1 1 220px; padding:8px 10px; border:2px solid #b6ac8f; background:#efe7d0;
-    color:#2b2a26; font-family:inherit; font-size:15px; outline:none; }
-  #search:focus { border-color:#1b2a5b; }
-  .counter { background:#111; color:#33ff5a; padding:6px 9px; border:2px solid #2b2a26;
-    letter-spacing:2px; font-size:12px; white-space:nowrap; }
+  .try { color:var(--muted); }
+  .try .w { display:inline-flex; gap:16px; margin-left:6px; }
+  .try .w a { font-weight:600; }
 
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px; margin-top:14px; }
-  .card { display:flex; align-items:center; gap:10px; background:#efe7d0; border:2px solid #2b2a26;
-    box-shadow:3px 3px 0 rgba(43,42,38,.28); padding:8px 10px; }
-  .ava { position:relative; flex:none; width:42px; height:42px; background:#1b2a5b; border:2px solid #2b2a26; overflow:hidden;
-    display:flex; align-items:center; justify-content:center; color:#efe7d0; font-weight:bold; font-size:18px; }
-  .ava img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-  .meta { min-width:0; }
-  .nm { color:#1b2a5b; font-weight:bold; text-decoration:none; font-size:16px; }
-  .nm:hover { text-decoration:underline; }
-  .hs { color:#6b6552; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .via { font-size:12px; color:#6b6552; margin-top:1px; }
-  .via.star { color:#c98a1e; }
-  .gh { align-self:flex-start; margin-left:auto; font-size:12px; color:#6b6552; text-decoration:none; }
-  .gh:hover { color:#1b2a5b; }
-  .note { color:#6b6552; margin-top:12px; font-size:14px; }
+  .count { color:var(--faint); font-size:14px; font-weight:400; margin-left:8px; }
+  #search {
+    width:100%; margin:6px 0 20px; background:var(--surface); color:var(--text);
+    border:1px solid var(--border); border-radius:9px; padding:11px 14px; font:inherit; outline:none;
+  }
+  #search:focus { border-color:var(--accent-dim); }
+  #search::placeholder { color:var(--faint); }
 
-  pre { background:#111; color:#d7d7c0; border:2px solid #2b2a26; padding:11px 13px; overflow:auto; font-size:13px; }
-  .foot { text-align:center; color:#6b6552; font-size:13px; margin-top:24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:20px 26px; }
+  .m { display:flex; gap:12px; align-items:flex-start; color:inherit; }
+  .m:hover { text-decoration:none; }
+  .ava {
+    width:38px; height:38px; flex:none; border-radius:9px; overflow:hidden; position:relative;
+    background:var(--surface); border:1px solid var(--border);
+    display:grid; place-items:center; color:var(--accent); font-weight:700; font-size:15px;
+  }
+  .ava img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .info { min-width:0; }
+  .name { color:var(--accent); font-weight:600; display:inline-flex; align-items:center; gap:5px; }
+  .m:hover .name { text-decoration:underline; text-underline-offset:2px; }
+  .name .ext { width:12px; height:12px; opacity:.7; }
+  .host { color:var(--muted); font-size:13.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .note { color:var(--faint); font-size:13px; margin-top:1px; }
+  .gh { display:inline-block; margin-top:4px; color:var(--faint); font-size:12px; }
+  .gh:hover { color:var(--muted); }
+  .empty { grid-column:1/-1; color:var(--muted); }
+
+  .badge { border:0; display:block; margin:6px 0 4px; image-rendering:pixelated; }
+  footer { color:var(--faint); font-size:14px; margin-top:44px; }
+  footer a { color:var(--muted); }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="head">
-    <h1>The Loopback Webring</h1>
-    <p>A ring of personal websites, linked together in a loop. Invite only.</p>
-    <p>[ <a href="random/">Random site</a> ]</p>
-  </div>
+  <header class="top">
+    <svg class="logo" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="14" stroke="#ff6b6b" stroke-width="3"/>
+      <circle cx="20" cy="6" r="3.4" fill="#ff6b6b"/>
+      <circle cx="20" cy="20" r="3" fill="#e7e8ec"/>
+    </svg>
+    <h1>loopback</h1>
+  </header>
+  <p class="tagline">a hand-made ring of personal websites.</p>
 
-  <div class="panel">
-    <div class="bar"><span>&#9673; Members of the ring</span><span>loopback</span></div>
-    <div class="body">
-      <div class="toolbar">
-        <input id="search" type="search" placeholder="search the directory..." autocomplete="off" spellcheck="false">
-        <span class="counter" id="counter">VISITORS: 000000</span>
-      </div>
-      <div class="grid" id="members"><p>Loading member list...</p></div>
-      <p class="note" id="empty"></p>
-    </div>
-  </div>
+  <hr>
 
-  <div class="panel">
-    <div class="bar"><span>&#9632; What is this</span></div>
-    <div class="body">
-      <p>A webring is a collection of independent websites linked together in a loop. You start
-      at one site, click "next", and you are taken to the next member's site, then the next, and
-      so on, until you come back around to where you started. No ranking, no tracking, no algorithm.
-      Just a list of people's own websites, connected by hand.</p>
-    </div>
-  </div>
+  <h2>webring</h2>
+  <p>what&apos;s this? a handful of people built their own personal websites, and we linked them all
+  together with a little loop. land on one, click <b>next</b>, and you drift to the next person&apos;s
+  corner of the internet &mdash; then the next, until you come back around to where you started.</p>
+  <p class="try">here, try it yourself:
+    <span class="w">
+      <a id="t-prev" href="random/">&larr; prev</a>
+      <a href="random/">&#9860; random</a>
+      <a id="t-next" href="random/">next &rarr;</a>
+    </span>
+  </p>
 
-  <div class="panel">
-    <div class="bar"><span>&#9998; How to join</span></div>
-    <div class="body">
-      <p>This ring is invite-only. You cannot add yourself, and there is no sign-up form.</p>
-      <p>To join, message <a href="https://discord.com/users/1352866897900732446" target="_blank" rel="noopener">arshnah on Discord</a> and ask for an invite. If you get one, you will receive the full step-by-step instructions then.</p>
-    </div>
-  </div>
+  <h2>why do this?</h2>
+  <p class="muted">short answer: your corner of the internet should belong to you, not a feed.
+  longer answer: read the <a href="manifesto.html">manifesto</a>.</p>
 
-  <div class="panel">
-    <div class="bar"><span>&#9670; Badge</span></div>
-    <div class="body">
-      <p>Link this 88x31 badge back to the ring:</p>
-      <p><img src="badge.svg" width="88" height="31" alt="loopback webring"></p>
-    </div>
-  </div>
+  <h2>members <span class="count" id="count"></span></h2>
+  <input id="search" type="search" placeholder="search members..." autocomplete="off" spellcheck="false">
+  <div class="grid" id="members"><p class="empty">loading&hellip;</p></div>
 
-  <p class="foot">&copy; 2026 &middot; <a href="https://github.com/arshnah/loopback">source on github</a></p>
+  <h2>join</h2>
+  <p class="muted">invite only &mdash; there&apos;s no sign-up form. message
+  <a href="https://discord.com/users/1352866897900732446" target="_blank" rel="noopener">arshnah on Discord</a>
+  and ask for an invite.</p>
+  <p><a href="./"><img class="badge" src="badge.svg" width="88" height="31" alt="loopback webring badge"></a></p>
+
+  <footer>
+    <a href="random/">random</a> &middot;
+    <a href="manifesto.html">manifesto</a> &middot;
+    <a href="https://github.com/arshnah/loopback" target="_blank" rel="noopener">source</a>
+    &middot; made for people who still make websites
+  </footer>
 
 </div>
 
 <script src="webring.js"></script>
 <script>
-  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
-    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]; }); }
-  function host(u){ try { return new URL(u).host.replace(/^www\./, ""); } catch (e) { return u; } }
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
+    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]; }); };
+  var host = function (u) { try { return new URL(u).host.replace(/^www\./, ""); } catch (e) { return u; } };
+  var EXT = '<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>';
 
-  (async function(){
+  function card(m) {
+    var av = m.gh
+      ? '<img src="https://avatars.githubusercontent.com/' + esc(m.gh) + '?size=76" alt="" loading="lazy" onerror="this.remove()">'
+      : "";
+    var initial = esc((m.name || "?").charAt(0).toUpperCase());
+    var note = m.note ? '<div class="note">' + esc(m.note) + "</div>" : "";
+    var gh = m.gh ? '<a class="gh" href="https://github.com/' + esc(m.gh) + '" target="_blank" rel="noopener">github &#8599;</a>' : "";
+    var q = esc((m.name + " " + host(m.url) + " " + (m.note || "")).toLowerCase());
+    return '<div class="m" data-q="' + q + '">' +
+      '<span class="ava">' + av + initial + '</span>' +
+      '<span class="info">' +
+        '<a class="name" href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.name) + EXT + '</a>' +
+        '<div class="host">' + esc(host(m.url)) + '</div>' + note + gh +
+      '</span>' +
+    '</div>';
+  }
+
+  (function () {
     var grid = document.getElementById("members");
-    var empty = document.getElementById("empty");
-    try {
-      var members = await loadMembers();
-      document.getElementById("counter").textContent =
-        "VISITORS: " + String(13370 + members.length).slice(-6).padStart(6, "0");
-
-      if (!members.length) { grid.innerHTML = "<p>No members yet.</p>"; return; }
-
-      grid.innerHTML = members.map(function(m){
-        var initial = esc((m.name || "?").charAt(0).toUpperCase());
-        var av = m.gh
-          ? '<img src="https://avatars.githubusercontent.com/' + esc(m.gh) +
-            '?size=80" alt="" loading="lazy" onerror="this.remove()">'
-          : "";
-        var gh = m.gh ? '<a class="gh" href="https://github.com/' + esc(m.gh) + '">[gh]</a>' : "";
-        var via = "";
-        if (m.invitedBy) via = (String(m.invitedBy).toLowerCase() === "founder")
-          ? '<div class="via star">&#9733; founder</div>'
-          : '<div class="via">&#8627; invited by ' + esc(m.invitedBy) + '</div>';
-        var q = esc((m.name + " " + host(m.url) + " " + (m.invitedBy || "")).toLowerCase());
-        return '<div class="card" data-q="' + q + '">' +
-          '<div class="ava">' + av + initial + '</div>' +
-          '<div class="meta">' +
-            '<a class="nm" href="' + esc(m.url) + '">' + esc(m.name) + '</a>' +
-            '<div class="hs">' + esc(host(m.url)) + '</div>' + via +
-          '</div>' + gh +
-        '</div>';
-      }).join("");
-
-      var cards = [].slice.call(grid.querySelectorAll(".card"));
-      document.getElementById("search").addEventListener("input", function(){
+    var search = document.getElementById("search");
+    loadMembers().then(function (members) {
+      document.getElementById("count").textContent = members.length + (members.length === 1 ? " site" : " sites");
+      if (members[0]) {
+        document.getElementById("t-prev").href = "go.html?from=" + encodeURIComponent(members[0].name) + "&dir=prev";
+        document.getElementById("t-next").href = "go.html?from=" + encodeURIComponent(members[0].name) + "&dir=next";
+      }
+      grid.innerHTML = members.map(card).join("") || '<p class="empty">no members yet.</p>';
+      var rows = [].slice.call(grid.querySelectorAll(".m"));
+      search.addEventListener("input", function () {
         var query = this.value.trim().toLowerCase();
-        var shown = 0;
-        cards.forEach(function(c){
-          var hit = !query || c.getAttribute("data-q").indexOf(query) >= 0;
-          c.style.display = hit ? "" : "none";
-          if (hit) shown++;
+        rows.forEach(function (r) {
+          var hit = !query || r.getAttribute("data-q").indexOf(query) >= 0;
+          r.style.display = hit ? "" : "none";
         });
-        empty.textContent = shown ? "" : 'No site matches "' + query + '".';
       });
-    } catch (e) {
-      grid.innerHTML = "<p>Could not load the member list. (Serve over http, not file://.)</p>";
-    }
+    }).catch(function () {
+      grid.innerHTML = '<p class="empty">could not load the member list. (serve over http, not file://.)</p>';
+    });
   })();
 </script>
-
 </body>
 </html>

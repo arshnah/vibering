@@ -6,7 +6,8 @@ Deploys free to GitHub Pages, Netlify, Vercel, or any static host.
 
 ```
 webring/
-├── index.html        the directory + manifesto + join panel
+├── index.html        the directory + join panel
+├── manifesto.html    the "why make a personal website" manifesto
 ├── go.html           the prev / next redirect engine
 ├── random/index.html the clean /random/ redirect
 ├── webring.js        shared config + routing logic  ← edit CONFIG here
@@ -28,9 +29,9 @@ The whole ring is driven by `webring.json`, an **ordered** array of members:
 ```
 
 `name`, `gh`, and `url` are the basics (`gh` is optional; it just pulls the GitHub avatar).
+`note` is an optional one-line descriptor shown under each member (e.g. `"solo dev · india"`).
 `invitedBy` records who vouched for each member: use `"founder"` for the people who started
-the ring, and the inviter's handle for everyone else. It's shown on each card and is how the
-invite-only model stays honest.
+the ring, and the inviter's handle for everyone else. It keeps the invite-only model honest.
 
 `index.html` fetches that file and renders the directory. `go.html` reads it too and resolves
 navigation entirely in the browser:
@@ -41,8 +42,8 @@ navigation entirely in the browser:
 | `go.html?from=NAME&dir=prev`           | the member **before** NAME (wraps around) |
 | `/random/` (or `go.html?dir=random`)   | a random member                           |
 
-The homepage has a **lights on / lights out** toggle (parchment ↔ green-phosphor CRT); the
-choice is remembered in `localStorage`.
+The homepage is a clean dark theme, with a `/manifesto.html` page and a member directory that
+renders from `webring.json` (avatar, name, host, and the optional `note`).
 
 ## How to join the ring (invite-only)
 
