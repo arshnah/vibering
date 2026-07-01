@@ -1,22 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31" shape-rendering="crispEdges">
-  <!-- outer frame -->
   <rect width="88" height="31" fill="#0d1430"/>
   <rect x="1" y="1" width="86" height="29" fill="#1b2a5b"/>
-  <!-- top highlight + bottom shadow bevel -->
   <rect x="1" y="1" width="86" height="1" fill="#33478a"/>
   <rect x="1" y="29" width="86" height="1" fill="#0a1024"/>
-  <!-- left glyph panel -->
   <rect x="1" y="1" width="26" height="29" fill="#0d1430"/>
   <rect x="27" y="1" width="1" height="29" fill="#33478a"/>
-  <!-- spinning-ring glyph -->
   <g transform="translate(14,15.5)">
     <circle r="8" fill="none" stroke="#f6c177" stroke-width="2"/>
     <circle cx="0" cy="-8" r="2.3" fill="#eb6f92"/>
     <circle r="2.1" fill="#efe7d0"/>
   </g>
-  <!-- wordmark (textLength pins it inside the box so nothing clips) -->
-  <text x="31" y="14" textLength="53" lengthAdjust="spacingAndGlyphs"
-        font-family="Verdana,Geneva,sans-serif" font-size="9" font-weight="bold" fill="#f7f1df">LOOPBACK</text>
-  <text x="31" y="24" textLength="53" lengthAdjust="spacingAndGlyphs"
-        font-family="Verdana,Geneva,sans-serif" font-size="7" fill="#f6c177">WEB&#160;RING</text>
+  <text x="31" y="14" textLength="53" lengthAdjust="spacingAndGlyphs" font-family="Verdana,Geneva,sans-serif" font-size="9" font-weight="bold" fill="#f7f1df">LOOPBACK</text>
+  <text x="31" y="24" textLength="53" lengthAdjust="spacingAndGlyphs" font-family="Verdana,Geneva,sans-serif" font-size="7" fill="#f6c177">WEB RING</text>
 </svg>
