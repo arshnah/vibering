@@ -4,19 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>vibering · a webring</title>
+  <title>larpring · a webring</title>
   <meta name="description" content="a little ring of hand-made personal websites. invite only.">
-  <meta property="og:title" content="vibering webring">
+  <meta property="og:title" content="larpring webring">
   <meta property="og:description" content="a little ring of hand-made personal websites. invite only.">
-  <meta property="og:url" content="https://arshnah.github.io/vibering/">
-  <meta property="og:image" content="https://arshnah.github.io/vibering/og.png">
+  <meta property="og:url" content="https://larpring.github.io/">
+  <meta property="og:image" content="https://larpring.github.io/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <script>
     (function () {
-      var t; try { t = localStorage.getItem("vibering-theme"); } catch (e) { }
+      var t; try { t = localStorage.getItem("larpring-theme"); } catch (e) { }
       document.documentElement.dataset.theme = t || "dark";
     })();
   </script>
@@ -483,7 +483,7 @@
         <rect x="15" y="15" width="10" height="10" fill="var(--palette-3)" />
         <rect x="22" y="6" width="6" height="6" fill="var(--palette-4)" />
       </svg>
-      <h1 class="word">vibering</h1>
+      <h1 class="word">larpring</h1>
       <button class="theme-btn" id="theme" title="toggle theme" aria-label="toggle theme"></button>
     </header>
     <p class="tagline">a little ring of hand-made personal websites.</p>
@@ -541,16 +541,16 @@
       and ask.
     </p>
     <p><a href="./">
-        <img class="badge badge-dark" src="badge.svg" width="88" height="31" alt="vibering webring badge">
-        <img class="badge badge-light" src="badge-light.svg" width="88" height="31" alt="vibering webring badge">
+        <img class="badge badge-dark" src="badge.svg" width="88" height="31" alt="larpring webring badge">
+        <img class="badge badge-light" src="badge-light.svg" width="88" height="31" alt="larpring webring badge">
       </a></p>
 
     <footer>
-      <div>&copy; 2026 vibering</div>
+      <div>&copy; 2026 larpring</div>
       <div>
         <a href="random/">random</a> &middot;
         <a href="manifesto.html">manifesto</a> &middot;
-        <a href="https://github.com/arshnah/vibering" target="_blank" rel="noopener">source</a>
+        <a href="https://github.com/larpring/larpring.github.io" target="_blank" rel="noopener">source</a>
       </div>
     </footer>
 
@@ -568,7 +568,7 @@
     themeBtn.addEventListener("click", function () {
       var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = next;
-      try { localStorage.setItem("vibering-theme", next); } catch (e) { }
+      try { localStorage.setItem("larpring-theme", next); } catch (e) { }
       paintTheme();
     });
     paintTheme();
@@ -611,7 +611,7 @@
     (function () {
       var grid = document.getElementById("members");
       var search = document.getElementById("search");
-      var STATUS_URL = "https://raw.githubusercontent.com/arshnah/vibering/status/status.json";
+      var STATUS_URL = "https://raw.githubusercontent.com/larpring/larpring.github.io/status/status.json";
       fetch(STATUS_URL, { cache: "no-store" })
         .then(function (r) { return r.ok ? r.json() : null; })
         .catch(function () { return null; })

@@ -14,6 +14,6 @@
   <rect x="16" y="6.5" width="4" height="4" fill="#D9F9DF"/>
   
   <!-- Text Content -->
-  <text x="33" y="13.5" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" letter-spacing="0.5" fill="#f0f0f5">VIBERING</text>
+  <text x="33" y="13.5" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" letter-spacing="0.5" fill="#f0f0f5">LARPRING</text>
   <text x="33" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="500" letter-spacing="0.2" fill="#9fa0b2">web ring</text>
 </svg>

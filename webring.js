@@ -1,6 +1,6 @@
 const CONFIG = {
-  name: "vibering",
-  baseUrl: "https://arshnah.github.io/vibering",
+  name: "larpring",
+  baseUrl: "https://larpring.github.io",
   dataUrl: "webring.json",
 };
 

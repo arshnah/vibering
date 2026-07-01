@@ -33,7 +33,7 @@ jobs:
               try {
                 const res = await fetch(m.url, {
                   method: "GET", redirect: "follow", signal: ctrl.signal,
-                  headers: { "user-agent": "vibering-health-check" },
+                  headers: { "user-agent": "larpring-health-check" },
                 });
                 sites[m.name] = res.ok ? "up" : "down";
                 if (!res.ok) down.push(`**${m.name}** — ${m.url} (HTTP ${res.status})`);

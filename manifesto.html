@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>manifesto · vibering</title>
+<title>manifesto · larpring</title>
 <meta name="description" content="you are not a user. you are a person. make a website you think is cool.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script>
   (function () {
-    var t; try { t = localStorage.getItem("vibering-theme"); } catch (e) {}
+    var t; try { t = localStorage.getItem("larpring-theme"); } catch (e) {}
     document.documentElement.dataset.theme = t || "dark";
   })();
 </script>
@@ -210,7 +210,7 @@
   through everyone else&apos;s.</p>
 
   <div class="end">
-    <span>vibering webring &middot; 2026</span>
+    <span>larpring webring &middot; 2026</span>
     <span><a href="./">back to the ring</a></span>
   </div>
 
@@ -227,7 +227,7 @@
   themeBtn.addEventListener("click", function () {
     var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
-    try { localStorage.setItem("vibering-theme", next); } catch (e) {}
+    try { localStorage.setItem("larpring-theme", next); } catch (e) {}
     paintTheme();
   });
   paintTheme();
