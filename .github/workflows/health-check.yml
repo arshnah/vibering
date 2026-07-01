@@ -1,0 +1,57 @@
+name: ring health check
+
+# Pings every member site on a schedule. If any are down, it opens (or updates)
+# an issue listing them. When everything is back up, it closes that issue.
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"   # every Monday, 08:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const members = JSON.parse(fs.readFileSync("webring.json", "utf8"));
+            const marker = "<!-- ring-health -->";
+            const down = [];
+
+            for (const m of members) {
+              const ctrl = new AbortController();
+              const timer = setTimeout(() => ctrl.abort(), 15000);
+              try {
+                const res = await fetch(m.url, {
+                  method: "GET", redirect: "follow", signal: ctrl.signal,
+                  headers: { "user-agent": "vibering-health-check" },
+                });
+                if (!res.ok) down.push(`**${m.name}** — ${m.url} (HTTP ${res.status})`);
+              } catch (e) {
+                down.push(`**${m.name}** — ${m.url} (${e.name || "unreachable"})`);
+              } finally {
+                clearTimeout(timer);
+              }
+            }
+
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const issues = await github.paginate(github.rest.issues.listForRepo, { owner, repo, state: "open", per_page: 100 });
+            const existing = issues.find((i) => i.body && i.body.includes(marker));
+
+            if (down.length) {
+              const today = new Date().toISOString().slice(0, 10);
+              const body = `${marker}\n\nAs of ${today}, these member sites look down:\n\n${down.map((d) => "- " + d).join("\n")}\n\nRe-run this workflow once they are back, or drop them from \`webring.json\`.`;
+              if (existing) await github.rest.issues.update({ owner, repo, issue_number: existing.number, body, state: "open" });
+              else await github.rest.issues.create({ owner, repo, title: "⚠ ring health: some sites are down", body });
+              core.setFailed(`down: ${down.length}`);
+            } else if (existing) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: existing.number, body: "All member sites are back up. Closing." });
+              await github.rest.issues.update({ owner, repo, issue_number: existing.number, state: "closed" });
+            }
