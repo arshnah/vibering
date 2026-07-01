@@ -3,26 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>manifesto — vibering</title>
+<title>manifesto · vibering</title>
 <meta name="description" content="you are not a user. you are a person. make a website you think is cool.">
 <style>
-  :root { --bg:#0d0e12; --text:#e7e8ec; --muted:#8b8d99; --faint:#5c5e6a; --accent:#ff6b6b; }
+  :root {
+    --bg:#fbf3e8; --ink:#2a2320; --muted:#7d7064; --faint:#a99a88;
+    --link:#cf2e77; --link-hover:#a01f5c; --g1:#7c5cff; --g2:#ff5db1; --g3:#ff7a5c;
+    --grad:linear-gradient(105deg, var(--g1), var(--g2), var(--g3));
+  }
   * { box-sizing:border-box; }
   body {
-    margin:0; background:var(--bg); color:var(--text);
-    font:17px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin:0; color:var(--ink);
+    background:
+      radial-gradient(820px 480px at 10% -10%, rgba(124,92,255,.16), transparent 60%),
+      radial-gradient(760px 440px at 98% 4%, rgba(255,122,92,.15), transparent 55%),
+      var(--bg);
+    background-attachment:fixed;
+    font:17px/1.75 "Segoe UI", ui-rounded, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  a { color:var(--accent); }
+  a { color:var(--link); }
+  a:hover { color:var(--link-hover); }
   .wrap { width:min(680px,100%); margin:0 auto; padding:44px 22px 100px; }
   .back { color:var(--muted); text-decoration:none; font-size:15px; }
-  .back:hover { color:var(--accent); }
-  h1 { font-size:34px; font-weight:800; letter-spacing:-.02em; margin:34px 0 22px; }
-  h2 { font-size:24px; font-weight:700; letter-spacing:-.01em; margin:44px 0 14px; }
+  .back:hover { color:var(--link); }
+  h1 {
+    font-size:clamp(34px,8vw,46px); font-weight:800; letter-spacing:-.03em; margin:30px 0 22px;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  }
+  h2 { font-size:24px; font-weight:700; letter-spacing:-.01em; margin:46px 0 14px; }
   p { margin:0 0 18px; }
   .lead { font-size:20px; }
   .muted { color:var(--muted); }
-  em { color:#fff; font-style:italic; }
+  em { font-style:italic; color:#7c3aed; }
   .end { color:var(--faint); margin-top:48px; font-size:15px; }
   .end a { color:var(--muted); }
 </style>
@@ -34,36 +47,36 @@
 
   <h1>manifesto</h1>
 
-  <p class="lead">you are not a user. you are not a metric. you are a person &mdash; and you deserve a
-  place on the internet that is actually yours.</p>
+  <p class="lead">you are not a user. you are not a number in somebody&apos;s dashboard. you are a
+  person, and you deserve a spot on the internet that is actually yours.</p>
 
-  <p>picture it: a page with your name on it, that looks exactly the way <em>you</em> want it to look.
-  a place other people can wander into and get to know you. a place no algorithm can throttle, no feed
-  can bury, and nobody can switch off because &ldquo;engagement&rdquo; dipped this quarter.</p>
+  <p>picture it. a page with your name on it, that looks exactly the way <em>you</em> want it to.
+  somewhere people can wander into and actually get to know you. a place no feed can bury, and nobody
+  can quietly switch off because the numbers dipped this quarter.</p>
 
-  <p>somewhere to post your projects, rant about your day, keep a guestbook, dump the songs and films
-  and half-finished ideas you love. a room you built by hand, with the door left open.</p>
+  <p>somewhere to post your projects, complain about your day, keep a guestbook, dump the songs and
+  films and half-finished ideas you love. a room you built yourself, with the door left open.</p>
 
-  <p>a personal website is how you get there.</p>
+  <p>a personal website is how you get one.</p>
 
-  <p class="muted">it&apos;s the first small act of owning your own patch of the internet. if that
-  idea does anything for you at all &mdash; keep reading.</p>
+  <p class="muted">it&apos;s the first small step to owning your own patch of the internet. if that
+  idea does anything for you at all, keep reading.</p>
 
   <h2>perfect is not the point</h2>
 
-  <p>the point is ownership, not polish.</p>
+  <p>the point is that it&apos;s yours, not that it&apos;s polished.</p>
 
-  <p>make it ugly. make it weird. make it slow. hand-code it in a text editor at 3am and never touch a
-  framework. as long as it&apos;s <em>yours</em> and you&apos;re a little proud of it, it&apos;s right.</p>
+  <p>make it ugly. make it weird. make it slow. hand-code it in notepad at 3am and never touch a
+  framework in your life. as long as it&apos;s <em>yours</em> and you like it even a little, it did
+  its job.</p>
 
-  <p>&ldquo;clean&rdquo; and &ldquo;professional&rdquo; are for people getting paid. this is for fun.
-  free yourself of what you think a website is <em>supposed</em> to be, and build one that just sounds
-  like you.</p>
+  <p>&ldquo;clean&rdquo; and &ldquo;professional&rdquo; are for people getting paid. this one is for
+  fun. forget what you think a website is supposed to be, and build one that just sounds like you.</p>
 
-  <p>so: stop optimising. make a website you think is cool. then link it into the ring and go wander
+  <p>so stop tweaking it. make a website you think is cool, link it into the ring, and go wander
   through everyone else&apos;s.</p>
 
-  <p class="end">that&apos;s the whole idea. &middot; <a href="./">back to the ring</a></p>
+  <p class="end">that&apos;s pretty much it. &middot; <a href="./">back to the ring</a></p>
 
 </div>
 </body>
